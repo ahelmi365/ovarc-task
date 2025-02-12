@@ -1,3 +1,4 @@
+import userIcon from "@assets/png/userIcon.png";
 import appLogo from "@assets/svg/appLogo.svg";
 import appLogoSmall from "@assets/svg/appLogoSmall.svg";
 import authorIcon from "@assets/svg/authorIcon.svg";
@@ -112,7 +113,7 @@ const App: React.FC = () => {
           bottom: 0,
           background: "#FFFFFF",
           zIndex: 1000,
-          paddingTop: "4rem",
+          paddingTop: "1rem",
         }}
       >
         <div className="demo-logo-vertical" style={{ transition: "all 0.5s" }}>
@@ -128,7 +129,7 @@ const App: React.FC = () => {
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
-          style={{ background: "#FFFFFF", marginTop: "1rem" }}
+          style={{ background: "#FFFFFF", paddingTop: "3rem" }}
           onSelect={({ key }) => setSelectedKey(key)}
         />
       </Sider>
@@ -138,7 +139,31 @@ const App: React.FC = () => {
           transition: "margin-left 0.2s",
         }}
       >
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 16px",
+            }}
+          >
+            <div></div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={userIcon}
+                alt="User Profile"
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  marginRight: 8,
+                }}
+              />
+              <span>Jacob Jones</span>
+            </div>
+          </div>
+        </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>
@@ -161,7 +186,7 @@ const App: React.FC = () => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          Ovarc BoosStore ©{new Date().getFullYear()} Created by Ali Helmi
         </Footer>
       </Layout>
     </Layout>
