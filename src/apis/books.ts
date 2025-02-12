@@ -57,3 +57,10 @@ export const deleteBook = async (id: number): Promise<void> => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 };
+
+// READ - Get author name by author ID
+export const getAuthorName = async (authorId: number): Promise<string> => {
+  const response = await fetch(`${API_URL}/authors/${authorId}`);
+  const data = await handleResponse(response);
+  return data["first_name"] + data["last_name"];
+};
