@@ -68,7 +68,17 @@ const App: React.FC = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
         theme="light"
-        style={{ padding: "10px" }}
+        style={{
+          padding: "10px",
+          position: "fixed",
+          height: "100vh",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          background: "#FFFFFF",
+          zIndex: 1000,
+          paddingTop: "4rem",
+        }}
       >
         <div className="demo-logo-vertical">
           <img src={appLogo} alt="Book world logo" width={150} />
@@ -82,7 +92,12 @@ const App: React.FC = () => {
           onSelect={({ key }) => setSelectedKey(key)}
         />
       </Sider>
-      <Layout>
+      <Layout
+        style={{
+          marginLeft: collapsed ? 80 : 200,
+          transition: "margin-left 0.2s",
+        }}
+      >
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
