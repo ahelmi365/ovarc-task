@@ -4,14 +4,19 @@ import BooksIcon from "@assets/svg/BooksIcon.svg";
 import shopIcon from "@assets/svg/shopIcon.svg";
 import storeIcon from "@assets/svg/storeIcon.svg";
 import Spinner from "@components/Spinner/Spinner";
-import Authors from "@pages/Authors/Authors";
-import Books from "@pages/Books/Books";
-import Shop from "@pages/Shop/Shop";
-import Stores from "@pages/Stores/Stores";
+// import Authors from "@pages/Authors/Authors";
+// import Books from "@pages/Books/Books";
+// import Shop from "@pages/Shop/Shop";
+// import Stores from "@pages/Stores/Stores";
+import { lazy } from "react";
+const Authors = lazy(() => import("@pages/Authors/Authors"));
+const Books = lazy(() => import("@pages/Books/Books"));
+const Shop = lazy(() => import("@pages/Shop/Shop"));
+const Stores = lazy(() => import("@pages/Stores/Stores"));
 import { useAppSelector } from "@store/hooks";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -48,15 +53,36 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (selectedKey) {
       case "1":
-        return <Shop />;
+        return (
+          <Suspense fallback={<Spinner />}>
+            <Shop />
+          </Suspense>
+        );
       case "2":
-        return <Stores />;
+        return (
+          <Suspense fallback={<Spinner />}>
+            <Stores />
+          </Suspense>
+        );
       case "3":
-        return <Authors />;
+        return (
+          <Suspense fallback={<Spinner />}>
+            <Authors />
+          </Suspense>
+        );
       case "4":
-        return <Books />;
+        return (
+          <Suspense fallback={<Spinner />}>
+            <Books />
+          </Suspense>
+        );
       default:
-        return <Shop />;
+        return (
+          <Suspense fallback={<Spinner />}>
+            {" "}
+            <Shop />
+          </Suspense>
+        );
     }
   };
   const isLoading = useAppSelector((state) => state.auth.isLoading);
@@ -101,8 +127,13 @@ const App: React.FC = () => {
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              {(
+                items.find(
+                  (item) => item?.key === selectedKey && "label" in item
+                ) as MenuItem
+              )?.label ?? "Unknown"}
+            </Breadcrumb.Item>
           </Breadcrumb>
           <div
             style={{
