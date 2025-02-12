@@ -1,5 +1,7 @@
 import { Card, Col, Flex, Row } from "antd";
 import StoreInfo from "./SellButton/StoreInfo/StoreInfo";
+import Title from "antd/es/typography/Title";
+import GraySpan from "@components/GraySpan/GraySpan";
 interface ShopCardProps {
   bookCoverPage: string;
   title: string;
@@ -16,24 +18,37 @@ const ShopCard = ({
   storeName,
 }: ShopCardProps) => {
   return (
-    <Card bodyStyle={{ padding: "10px" }}>
+    <Card>
       <Row gutter={16}>
         <Col
           span={8}
           style={{
             background: bgColors[Math.floor(Math.random() * bgColors.length)],
-            padding: "5px",
+            padding: "7px",
             borderRadius: "5px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: "bold",
+            fontSize: "12px",
+            textAlign: "center",
           }}
         >
-          {bookCoverPage}
+          {bookCoverPage.charAt(0).toUpperCase() + title.slice(1)}
         </Col>
         <Col span={16}>
-          <Row>
-            <Col>{title}</Col>
-            <Col>by {authorName}</Col>
-          </Row>
-          <Col>Stores</Col>
+          <Col>
+            <Title level={5} style={{ margin: "0" }}>
+              {title.charAt(0).toUpperCase() + title.slice(1)}
+            </Title>
+          </Col>
+          <Col>
+            <GraySpan>By:{authorName}</GraySpan>
+          </Col>
+
+          <Col>
+            <GraySpan>Stores</GraySpan>
+          </Col>
           <Flex gap={16}>
             <Col style={{ background: storeBgColor }} span={12}>
               <StoreInfo storeName={storeName} price="10" />
