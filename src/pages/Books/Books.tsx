@@ -1,9 +1,10 @@
-import useBooks from "@hooks/useBooks";
-import { Flex, Row, Col, Button } from "antd";
+import { Flex, Row, Col, Button, Table } from "antd";
 import Search from "antd/es/transfer/search";
 import Title from "antd/es/typography/Title";
+import { Book } from "types";
+import useBooks from "./useBooks";
 const Books = () => {
-  const { books, isLoading, error } = useBooks();
+  const { columns, books, handleTableChange, pagination } = useBooks();
   return (
     <Flex vertical gap={"1rem"}>
       <Row justify={"space-between"}>
@@ -23,7 +24,22 @@ const Books = () => {
           <Button>Add New Book</Button>
         </Col>
       </Row>
-      <Row></Row>
+      <Row>
+        <Col span={24}>
+          <Table<Book>
+            // scroll={{ x: 768 }}
+            columns={columns}
+            dataSource={books}
+            rowKey={(record) => record.id}
+            pagination={{
+              ...pagination,
+              showTotal: (total) => `Total ${total} records`,
+            }}
+            onChange={handleTableChange}
+            tableLayout="auto"
+          />
+        </Col>
+      </Row>
     </Flex>
   );
 };
