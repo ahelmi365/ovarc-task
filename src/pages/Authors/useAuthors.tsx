@@ -73,8 +73,7 @@ const useAuthors = () => {
       dataIndex: "id",
       key: "id",
       fixed: "left",
-      render: (_, __, index) =>
-        (pagination.current! - 1) * pagination.pageSize! + index + 1,
+      render: (_, record) => record.id,
     },
 
     {
