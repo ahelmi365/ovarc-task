@@ -3,7 +3,7 @@ import AppButton from "@components/AppButton/AppButton";
 import { Col, Flex, Row, Table } from "antd";
 import Search from "antd/es/transfer/search";
 import Title from "antd/es/typography/Title";
-import { Author, Book } from "types";
+import { Author } from "types";
 import useAuthors from "./useAuthors";
 
 const Authors = () => {
@@ -17,7 +17,7 @@ const Authors = () => {
     isModalOpen,
     handleOk,
     handleCancel,
-    handleAddNewBook,
+    handleAddNeAuthor,
   } = useAuthors();
   return (
     <>
@@ -36,8 +36,10 @@ const Authors = () => {
             </Flex>
           </Col>
           <Col>
-            {/* <Button>Add New Book</Button> */}
-            <AppButton buttonText="Add New Book" onClick={handleAddNewBook} />
+            <AppButton
+              buttonText="Add New Author"
+              onClick={handleAddNeAuthor}
+            />
           </Col>
         </Row>
         <Row>
