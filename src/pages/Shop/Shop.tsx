@@ -10,10 +10,10 @@ const Shop = () => {
       {books.slice(0, 10)?.map((book) => (
         <Col sm={24} md={12} lg={8} key={book.id}>
           <ShopCard
-            title={book.name}
-            authorName={book.isbn}
-            bookCoverPage={book.name}
-            storeName="dummy store name"
+            title={book.name.slice(0, 20)}
+            authorName={book.authorName}
+            bookCoverPage={book.name.slice(0, 20)}
+            storeName="store name"
           />
         </Col>
       ))}
