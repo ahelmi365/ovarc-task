@@ -24,7 +24,7 @@ const Shop = () => {
         </Col>
       </Row>
       <Row gutter={16}>
-        {filteredbooks.slice(0, 10)?.map((book) => (
+        {filteredbooks?.map((book) => (
           <Col sm={24} md={12} lg={8} key={book.id}>
             <ShopCard
               title={book.name.slice(0, 20)}

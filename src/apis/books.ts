@@ -64,6 +64,12 @@ export const deleteBook = async (id: string): Promise<void> => {
 export const getAuthorName = async (authorId: string): Promise<string> => {
   if (!authorId) return "";
   const response = await fetch(`${API_URL}/authors/${authorId}`);
-  const data = await handleResponse(response);
-  return data["first_name"] + data["last_name"];
+  if (response.ok) {
+    const data = await handleResponse(response);
+    if (authorId === "1") {
+      console.log({ data });
+    }
+
+    return data["first_name"] + data["last_name"];
+  } else return "Not Found";
 };
