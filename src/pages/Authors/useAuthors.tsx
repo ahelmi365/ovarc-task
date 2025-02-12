@@ -18,6 +18,7 @@ import { Author } from "types";
 
 const useAuthors = () => {
   const [authors, setAuthors] = useState<Author[]>([]);
+  const [filteredAuthors, setFilteredAuthors] = useState<Author[]>([]);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
@@ -26,6 +27,9 @@ const useAuthors = () => {
     try {
       await deleteAuthor(id);
       setAuthors((prevAuthors) =>
+        prevAuthors.filter((author) => author.id !== id)
+      );
+      setFilteredAuthors((prevAuthors) =>
         prevAuthors.filter((author) => author.id !== id)
       );
       notification.success({ message: "Author deleted successfully" });
@@ -45,6 +49,7 @@ const useAuthors = () => {
       try {
         const data = await getAuthors();
         setAuthors(data);
+        setFilteredAuthors(data);
 
         setError(null);
       } catch (err) {
@@ -148,6 +153,7 @@ const useAuthors = () => {
       const newAuthor = await createAuthor(authorDetails);
       console.log({ newAuthor });
       setAuthors((prevAuthors) => [newAuthor, ...prevAuthors]);
+      setFilteredAuthors((prevAuthors) => [newAuthor, ...prevAuthors]);
 
       notification.success({ message: "Author added successfully" });
     } catch (err) {
@@ -177,8 +183,21 @@ const useAuthors = () => {
     showModal();
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const trimmedValue = value.trim();
+    const newFilteredStores = authors.filter(
+      (book) =>
+        book.first_name.toLocaleLowerCase().includes(trimmedValue) ||
+        book.last_name.toLocaleLowerCase().includes(trimmedValue)
+    );
+    setFilteredAuthors(newFilteredStores);
+    if (trimmedValue === "") {
+      setFilteredAuthors(authors);
+    }
+  };
   return {
-    authors,
+    filteredAuthors,
     columns,
     handleTableChange,
     pagination,
@@ -188,6 +207,7 @@ const useAuthors = () => {
     handleOk,
     handleCancel,
     handleAddNeAuthor,
+    handleInputChange,
   };
 };
 

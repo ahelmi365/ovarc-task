@@ -8,7 +8,7 @@ import useAuthors from "./useAuthors";
 
 const Authors = () => {
   const {
-    authors,
+    filteredAuthors,
     columns,
     handleTableChange,
     pagination,
@@ -18,6 +18,7 @@ const Authors = () => {
     handleOk,
     handleCancel,
     handleAddNeAuthor,
+    handleInputChange,
   } = useAuthors();
   return (
     <>
@@ -31,7 +32,10 @@ const Authors = () => {
                 </Title>
               </Col>
               <Col>
-                <Search />
+                <Search
+                  onChange={handleInputChange}
+                  placeholder="Search by First or Last Name"
+                />
               </Col>
             </Flex>
           </Col>
@@ -47,7 +51,7 @@ const Authors = () => {
             <Table<Author>
               // scroll={{ x: 768 }}
               columns={columns}
-              dataSource={authors}
+              dataSource={filteredAuthors}
               rowKey={(record) => record.id}
               pagination={{
                 ...pagination,
