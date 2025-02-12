@@ -23,6 +23,7 @@ import { Book, BookDetails } from "types";
 
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
@@ -31,6 +32,9 @@ const useBooks = () => {
     try {
       await deleteBook(id);
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
+      setFilteredBooks((prevBooks) =>
+        prevBooks.filter((book) => book.id !== id)
+      );
       notification.success({ message: "Book deleted successfully" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -49,6 +53,7 @@ const useBooks = () => {
         const data = await getBooks();
         const booksWithAuthorNames = await addAuthorNamesToBooks(data);
         setBooks(booksWithAuthorNames);
+        setFilteredBooks(booksWithAuthorNames);
 
         setError(null);
       } catch (err) {
@@ -176,6 +181,10 @@ const useBooks = () => {
         { ...newBook, authorName: authorNameOfNewBook },
         ...prevBooks,
       ]);
+      setFilteredBooks((prevBooks) => [
+        { ...newBook, authorName: authorNameOfNewBook },
+        ...prevBooks,
+      ]);
 
       notification.success({ message: "Book added successfully" });
     } catch (err) {
@@ -205,8 +214,20 @@ const useBooks = () => {
     showModal();
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const trimmedValue = value.trim();
+    const newFilteredStores = books.filter((book) =>
+      book.name.toLocaleLowerCase().includes(trimmedValue)
+    );
+    setFilteredBooks(newFilteredStores);
+    if (trimmedValue === "") {
+      setFilteredBooks(books);
+    }
+  };
+
   return {
-    books,
+    filteredBooks,
     columns,
     handleTableChange,
     pagination,
@@ -216,6 +237,7 @@ const useBooks = () => {
     handleOk,
     handleCancel,
     handleAddNewBook,
+    handleInputChange,
   };
 };
 

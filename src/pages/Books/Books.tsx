@@ -7,7 +7,7 @@ import { Book } from "types";
 import useBooks from "./useBooks";
 const Books = () => {
   const {
-    books,
+    filteredBooks,
     columns,
     handleTableChange,
     pagination,
@@ -17,6 +17,7 @@ const Books = () => {
     handleOk,
     handleCancel,
     handleAddNewBook,
+    handleInputChange,
   } = useBooks();
   return (
     <>
@@ -30,7 +31,10 @@ const Books = () => {
                 </Title>
               </Col>
               <Col>
-                <Search />
+                <Search
+                  onChange={handleInputChange}
+                  placeholder="Search by Book Name"
+                />
               </Col>
             </Flex>
           </Col>
@@ -44,7 +48,7 @@ const Books = () => {
             <Table<Book>
               // scroll={{ x: 768 }}
               columns={columns}
-              dataSource={books}
+              dataSource={filteredBooks}
               rowKey={(record) => record.id}
               pagination={{
                 ...pagination,
