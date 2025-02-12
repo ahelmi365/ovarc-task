@@ -9,7 +9,12 @@ const Shop = () => {
     <Row gutter={16}>
       {books.slice(0, 10)?.map((book) => (
         <Col sm={24} md={12} lg={8} key={book.id}>
-          <ShopCard />
+          <ShopCard
+            title={book.name}
+            authorName={book.isbn}
+            bookCoverPage={book.name}
+            storeName="dummy store name"
+          />
         </Col>
       ))}
     </Row>
