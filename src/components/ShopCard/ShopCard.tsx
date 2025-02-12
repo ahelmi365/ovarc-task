@@ -7,7 +7,6 @@ interface ShopCardProps {
   title: string;
   authorName: string;
   storeName: string;
-  pages: number;
 }
 const storeBgColor = "#FFF6F1";
 const bgColors = ["#FFEBE1", "#E1F4FF", "#E4E1FF", "#E1FFEB", "#FFFCE1"];

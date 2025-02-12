@@ -22,6 +22,7 @@ const Authors = () => {
           <Button>Add New Author</Button>
         </Col>
       </Row>
+      <Row></Row>
     </Flex>
   );
 };
