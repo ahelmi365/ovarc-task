@@ -1,17 +1,18 @@
+import { setIsLoading } from "@store/authSlice/authSlice";
+import { useAppDispatch } from "@store/hooks";
 import { getAuthorName, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
 import { Book } from "types";
 
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   const addAuthorNamesToBooks = async (books: Book[]) => {
     const booksWithAuthorNames = await Promise.all(
       books.map(async (book) => {
         const authorName = await getAuthorName(book.author_id);
-        console.log({ authorName });
         return { ...book, authorName };
       })
     );
@@ -20,7 +21,7 @@ const useBooks = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       try {
         const data = await getBooks();
         const booksWithAuthorNames = await addAuthorNamesToBooks(data);
@@ -29,14 +30,14 @@ const useBooks = () => {
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
       }
     };
 
     fetchBooks();
   }, []);
 
-  return { books, isLoading, error };
+  return { books, error };
 };
 
 export default useBooks;

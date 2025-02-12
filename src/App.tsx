@@ -3,10 +3,12 @@ import authorIcon from "@assets/svg/authorIcon.svg";
 import BooksIcon from "@assets/svg/BooksIcon.svg";
 import shopIcon from "@assets/svg/shopIcon.svg";
 import storeIcon from "@assets/svg/storeIcon.svg";
+import Spinner from "@components/Spinner/Spinner";
 import Authors from "@pages/Authors/Authors";
 import Books from "@pages/Books/Books";
 import Shop from "@pages/Shop/Shop";
 import Stores from "@pages/Stores/Stores";
+import { useAppSelector } from "@store/hooks";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import React, { useState } from "react";
@@ -57,8 +59,10 @@ const App: React.FC = () => {
         return <Shop />;
     }
   };
+  const isLoading = useAppSelector((state) => state.auth.isLoading);
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      {isLoading && <Spinner />}
       <Sider
         collapsible
         collapsed={collapsed}
