@@ -1,5 +1,6 @@
 import { setIsLoading } from "@store/authSlice/authSlice";
 import { useAppDispatch } from "@store/hooks";
+import { notification } from "antd";
 import { getAuthorName, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
 import { Book } from "types";
@@ -29,6 +30,7 @@ const useBooks = () => {
         setError(null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
+        notification.error({ message: "Network Error, please try again" });
       } finally {
         dispatch(setIsLoading(false));
       }
