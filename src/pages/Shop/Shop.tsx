@@ -1,7 +1,8 @@
 import ShopCard from "@components/ShopCard/ShopCard";
-import { Col, Flex, Row } from "antd";
-import Search from "antd/es/input/Search";
 import Title from "antd/es/typography/Title";
+import Search from "antd/es/input/Search";
+import { Col, Flex, Row } from "antd";
+
 import useShop from "./useShop";
 
 const Shop = () => {
@@ -15,7 +16,11 @@ const Shop = () => {
           </Title>
         </Col>
         <Col>
-          <Search onChange={handleInputChange} />
+          <Search
+            onChange={handleInputChange}
+            placeholder="Search by Book Name"
+            allowClear
+          />
         </Col>
       </Row>
       <Row gutter={16}>
