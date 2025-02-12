@@ -15,9 +15,11 @@ import {
 } from "antd";
 import { deleteBook, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
-import { Book } from "types";
+import { Book, BookDetails } from "types";
 import editIcon from "@assets/svg/editIcon.svg";
 import deleteIcon from "@assets/svg/deleteIcon.svg";
+import AddNewBook from "@components/AddNewBook/AddNewBook";
+import { App_MAIN_COLOR } from "@utils/consts";
 
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -118,9 +120,9 @@ const useBooks = () => {
             size="middle"
             // variant="outlined"
             style={{
-              backgroundColor: "#BF5523",
-              borderColor: "#BF5523",
-              color: "#BF5523",
+              backgroundColor: App_MAIN_COLOR,
+              borderColor: App_MAIN_COLOR,
+              color: App_MAIN_COLOR,
             }}
             //   onClick={() => handleViewRequestDetails(record)}
           >
@@ -135,9 +137,9 @@ const useBooks = () => {
           <Button
             size="middle"
             style={{
-              backgroundColor: "#BF5523",
-              borderColor: "#BF5523",
-              color: "#BF5523",
+              backgroundColor: App_MAIN_COLOR,
+              borderColor: App_MAIN_COLOR,
+              color: App_MAIN_COLOR,
             }}
             onClick={() => handleDeleteBook(record.id)}
           >
@@ -155,7 +157,44 @@ const useBooks = () => {
     },
   ];
 
-  return { books, columns, handleTableChange, pagination };
+  //   handle modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState<React.ReactNode>();
+  const [modalBody, setModalBody] = useState<React.ReactNode>();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [newBookDetails, setNewBookDetails] = useState<BookDetails>();
+  const handleAddNewBook = () => {
+    setModalTitle("New Book");
+    setModalBody(
+      <AddNewBook onFinish={handleOk} setNewBookDetails={setNewBookDetails} />
+    );
+    showModal();
+  };
+
+  return {
+    books,
+    columns,
+    handleTableChange,
+    pagination,
+    modalTitle,
+    modalBody,
+    isModalOpen,
+    handleOk,
+    handleCancel,
+    handleAddNewBook,
+  };
 };
 
 export default useBooks;

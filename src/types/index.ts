@@ -47,3 +47,10 @@ export interface PaginatedResponse<T> {
   per_page: number;
   total_pages: number;
 }
+
+export interface BookDetails {
+  id: number;
+  name: string;
+  authorName: string;
+  page_count: number;
+}
