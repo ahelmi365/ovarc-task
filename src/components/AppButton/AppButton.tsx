@@ -4,6 +4,7 @@ interface AppButtonProps {
   onClick?: () => void;
   iconSrc?: string;
   buttonText?: string | React.ReactNode;
+  htmlType?: import("antd/es/button/button").ButtonProps["htmlType"];
 }
 const AppButton = ({ onClick, buttonText, iconSrc }: AppButtonProps) => {
   return (

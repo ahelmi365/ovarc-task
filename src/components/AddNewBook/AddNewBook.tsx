@@ -1,4 +1,13 @@
-import { Button, Form, Input, InputNumber, notification, Select } from "antd";
+import { App_MAIN_COLOR } from "@utils/consts";
+import {
+  Button,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  notification,
+  Select,
+} from "antd";
 import { BookDetails } from "types";
 
 const documentNNameOptions = [
@@ -10,9 +19,14 @@ const documentNNameOptions = [
 
 interface IAddNewDocumentProps {
   onFinish: () => void;
+  onCancel: () => void;
   setNewBookDetails: (newDetails: BookDetails) => void;
 }
-const AddNewBook = ({ onFinish, setNewBookDetails }: IAddNewDocumentProps) => {
+const AddNewBook = ({
+  onFinish,
+  setNewBookDetails,
+  onCancel,
+}: IAddNewDocumentProps) => {
   const [form] = Form.useForm();
 
   const handleSubmitNewDocumentDetails = () => {
@@ -81,14 +95,40 @@ const AddNewBook = ({ onFinish, setNewBookDetails }: IAddNewDocumentProps) => {
           />
         </Form.Item>
 
-        <Form.Item
-          label={null}
-          style={{ display: "flex", justifyContent: "end" }}
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
+        <Flex justify="end" gap={16}>
+          <Form.Item
+            label={null}
+            style={{ display: "flex", justifyContent: "end" }}
+          >
+            <Button
+              variant="outlined"
+              htmlType="reset"
+              style={{
+                borderColor: App_MAIN_COLOR,
+                color: App_MAIN_COLOR,
+              }}
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          </Form.Item>
+          <Form.Item
+            label={null}
+            style={{ display: "flex", justifyContent: "end" }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                backgroundColor: App_MAIN_COLOR,
+                borderColor: App_MAIN_COLOR,
+                color: "White",
+              }}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Flex>
       </Form>
     </div>
   );

@@ -178,7 +178,11 @@ const useBooks = () => {
   const handleAddNewBook = () => {
     setModalTitle("New Book");
     setModalBody(
-      <AddNewBook onFinish={handleOk} setNewBookDetails={setNewBookDetails} />
+      <AddNewBook
+        onFinish={handleOk}
+        setNewBookDetails={setNewBookDetails}
+        onCancel={handleCancel}
+      />
     );
     showModal();
   };
