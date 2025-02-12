@@ -1,5 +1,9 @@
+import deleteIcon from "@assets/svg/deleteIcon.svg";
+import editIcon from "@assets/svg/editIcon.svg";
+import AddNewBook from "@components/AddNewBook/AddNewBook";
 import { setIsLoading } from "@store/authSlice/authSlice";
 import { useAppDispatch } from "@store/hooks";
+import { App_MAIN_COLOR } from "@utils/consts";
 import {
   addAuthorNamesToBooks,
   generateTableFilters,
@@ -16,10 +20,6 @@ import {
 import { deleteBook, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
 import { Book, BookDetails } from "types";
-import editIcon from "@assets/svg/editIcon.svg";
-import deleteIcon from "@assets/svg/deleteIcon.svg";
-import AddNewBook from "@components/AddNewBook/AddNewBook";
-import { App_MAIN_COLOR } from "@utils/consts";
 
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -165,7 +165,10 @@ const useBooks = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-
+  const onFinish = (bookDetails: BookDetails) => {
+    console.log({ bookDetails });
+    handleOk();
+  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -174,16 +177,9 @@ const useBooks = () => {
     setIsModalOpen(false);
   };
 
-  const [newBookDetails, setNewBookDetails] = useState<BookDetails>();
   const handleAddNewBook = () => {
     setModalTitle("New Book");
-    setModalBody(
-      <AddNewBook
-        onFinish={handleOk}
-        setNewBookDetails={setNewBookDetails}
-        onCancel={handleCancel}
-      />
-    );
+    setModalBody(<AddNewBook onFinish={onFinish} onCancel={handleCancel} />);
     showModal();
   };
 

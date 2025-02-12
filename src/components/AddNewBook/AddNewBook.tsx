@@ -18,26 +18,19 @@ const documentNNameOptions = [
 ];
 
 interface IAddNewDocumentProps {
-  onFinish: () => void;
+  onFinish: (newDetails: BookDetails) => void;
   onCancel: () => void;
-  setNewBookDetails: (newDetails: BookDetails) => void;
 }
-const AddNewBook = ({
-  onFinish,
-  setNewBookDetails,
-  onCancel,
-}: IAddNewDocumentProps) => {
+const AddNewBook = ({ onFinish, onCancel }: IAddNewDocumentProps) => {
   const [form] = Form.useForm();
 
-  const handleSubmitNewDocumentDetails = () => {
-    setNewBookDetails({
+  const handleSubmitNewBookDetails = () => {
+    onFinish({
       id: 123,
-      name: "",
-      authorName: "",
-      page_count: 10,
+      name: form.getFieldValue("bookName"),
+      authorName: form.getFieldValue("authorName"),
+      page_count: form.getFieldValue("numberOfPages"),
     });
-
-    onFinish();
     form.resetFields();
     notification.success({ message: "New document is added successfully!" });
 
@@ -53,7 +46,7 @@ const AddNewBook = ({
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
-        onFinish={handleSubmitNewDocumentDetails}
+        onFinish={handleSubmitNewBookDetails}
         // onFinishFailed={onFinishFailed}
         autoComplete="off"
         layout="vertical"
