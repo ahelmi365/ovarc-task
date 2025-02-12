@@ -160,7 +160,7 @@ const App: React.FC = () => {
                   marginRight: 8,
                 }}
               />
-              <span>Jacob Jones</span>
+              <span>Ali Helmi</span>
             </div>
           </div>
         </Header>
