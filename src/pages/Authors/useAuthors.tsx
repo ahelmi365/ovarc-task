@@ -1,6 +1,6 @@
 import deleteIcon from "@assets/svg/deleteIcon.svg";
 import editIcon from "@assets/svg/editIcon.svg";
-import AddNewBook from "@components/AddNewBook/AddNewBook";
+import AddNewAuthor from "@components/AddNewAuthor/AddNewAuthor";
 import { setIsLoading } from "@store/authSlice/authSlice";
 import { useAppDispatch } from "@store/hooks";
 import { App_MAIN_COLOR } from "@utils/consts";
@@ -12,10 +12,9 @@ import {
   TableColumnsType,
   TablePaginationConfig,
 } from "antd";
-import { deleteAuthor, getAuthors } from "apis/authors";
-import { createBook } from "apis/books";
+import { createAuthor, deleteAuthor, getAuthors } from "apis/authors";
 import { useEffect, useState } from "react";
-import { Author, BookDetails } from "types";
+import { Author } from "types";
 
 const useAuthors = () => {
   const [authors, setAuthors] = useState<Author[]>([]);
@@ -85,7 +84,7 @@ const useAuthors = () => {
       filters: generateTableFilters(authors, "first_name"),
       onFilter: (value, record) => onFilterTable(value, record, "first_name"),
       sorter: (a, b) => sortTable(a, b, "first_name"),
-      render: (_, record) => `${record.first_name}${record.last_name}`,
+      render: (_, record) => `${record.first_name} ${record.last_name}`,
     },
 
     {
@@ -101,12 +100,11 @@ const useAuthors = () => {
               borderColor: App_MAIN_COLOR,
               color: App_MAIN_COLOR,
             }}
-            //   onClick={() => handleViewRequestDetails(record)}
           >
             <img
               src={editIcon}
-              alt="Edit Book"
-              title="Edit Book"
+              alt="Edit Author"
+              title="Edit Author"
               width={15}
               height={15}
             />
@@ -122,8 +120,8 @@ const useAuthors = () => {
           >
             <img
               src={deleteIcon}
-              alt="Edit Book"
-              title="Delete Book"
+              alt="Edit Author"
+              title="Delete Author"
               width={15}
               height={15}
             />
@@ -142,22 +140,24 @@ const useAuthors = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const onFinish = async (bookDetails: BookDetails) => {
+  const onFinish = async (authorDetails: Omit<Author, "id">) => {
     dispatch(setIsLoading(true));
     try {
-      await createBook(bookDetails);
+      const newAuthor = await createAuthor(authorDetails);
+      console.log({ newAuthor });
+      setAuthors((prevAuthors) => [newAuthor, ...prevAuthors]);
 
-      notification.success({ message: "Book added successfully" });
+      notification.success({ message: "Author added successfully" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       notification.error({
-        message: "Failed to add book, please try again",
+        message: "Failed to add author, please try again",
       });
     } finally {
       dispatch(setIsLoading(false));
     }
 
-    console.log({ bookDetails });
+    console.log({ authorDetails });
 
     handleOk();
   };
@@ -169,9 +169,9 @@ const useAuthors = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddNewBook = () => {
-    setModalTitle("New Book");
-    setModalBody(<AddNewBook onFinish={onFinish} onCancel={handleCancel} />);
+  const handleAddNeAuthor = () => {
+    setModalTitle("New Author");
+    setModalBody(<AddNewAuthor onFinish={onFinish} onCancel={handleCancel} />);
     showModal();
   };
 
@@ -185,7 +185,7 @@ const useAuthors = () => {
     isModalOpen,
     handleOk,
     handleCancel,
-    handleAddNewBook,
+    handleAddNeAuthor,
   };
 };
 
