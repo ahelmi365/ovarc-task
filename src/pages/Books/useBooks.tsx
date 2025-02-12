@@ -17,7 +17,7 @@ import {
   TableColumnsType,
   TablePaginationConfig,
 } from "antd";
-import { createBook, deleteBook, getBooks } from "apis/books";
+import { createBook, deleteBook, getAuthorName, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
 import { Book, BookDetails } from "types";
 
@@ -167,7 +167,13 @@ const useBooks = () => {
   const onFinish = async (bookDetails: BookDetails) => {
     dispatch(setIsLoading(true));
     try {
-      await createBook(bookDetails);
+      const newBook = await createBook(bookDetails);
+      const authorNameOfNewBook = await getAuthorName(newBook.author_id);
+      console.log({ authorNameOfNewBook });
+      setBooks((prevBooks) => [
+        { ...newBook, authorName: authorNameOfNewBook },
+        ...prevBooks,
+      ]);
 
       notification.success({ message: "Book added successfully" });
     } catch (err) {
