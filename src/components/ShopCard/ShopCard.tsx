@@ -7,6 +7,7 @@ interface ShopCardProps {
   title: string;
   authorName: string;
   storeName: string;
+  pages: number;
 }
 const storeBgColor = "#FFF6F1";
 const bgColors = ["#FFEBE1", "#E1F4FF", "#E4E1FF", "#E1FFEB", "#FFFCE1"];
@@ -54,7 +55,10 @@ const ShopCard = ({
               <StoreInfo storeName={storeName} price="10" />
             </Col>
             <Col style={{ background: storeBgColor }} span={12}>
-              <StoreInfo storeName={storeName} price="10" />
+              <StoreInfo
+                storeName={storeName}
+                price={(Math.random() * 20 + 5).toFixed(2)}
+              />
             </Col>
           </Flex>
         </Col>
