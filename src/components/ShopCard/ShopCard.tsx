@@ -1,28 +1,47 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Flex, Row } from "antd";
+import StoreInfo from "./SellButton/StoreInfo/StoreInfo";
+interface ShopCardProps {
+  bookCoverPage: string;
+  title: string;
+  authorName: string;
+  storeName: string;
+}
+const storeBgColor = "#FFF6F1";
+const bgColors = ["#FFEBE1", "#E1F4FF", "#E4E1FF", "#E1FFEB", "#FFFCE1"];
 
-const ShopCard = () => {
+const ShopCard = ({
+  bookCoverPage,
+  title,
+  authorName,
+  storeName,
+}: ShopCardProps) => {
   return (
-    <Card>
-      <Row>
-        <Col span={8}>Book title side</Col>
+    <Card bodyStyle={{ padding: "10px" }}>
+      <Row gutter={16}>
+        <Col
+          span={8}
+          style={{
+            background: bgColors[Math.floor(Math.random() * bgColors.length)],
+            padding: "5px",
+            borderRadius: "5px",
+          }}
+        >
+          {bookCoverPage}
+        </Col>
         <Col span={16}>
           <Row>
-            <Col>Book Title</Col>
-            <Col>by autho name</Col>
+            <Col>{title}</Col>
+            <Col>by {authorName}</Col>
           </Row>
-          <Row>
-            <span>Stores</span>
-            <Col>
-              <span>Store 1</span>
-              <span>Price</span>
-              <button>sell</button>
+          <Col>Stores</Col>
+          <Flex gap={16}>
+            <Col style={{ background: storeBgColor }} span={12}>
+              <StoreInfo storeName={storeName} price="10" />
             </Col>
-            <Col>
-              <span>Store 1</span>
-              <span>Price</span>
-              <button>sell</button>
+            <Col style={{ background: storeBgColor }} span={12}>
+              <StoreInfo storeName={storeName} price="10" />
             </Col>
-          </Row>
+          </Flex>
         </Col>
       </Row>
     </Card>
