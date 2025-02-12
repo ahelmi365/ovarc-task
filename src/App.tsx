@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
 import appLogo from "@assets/svg/appLogo.svg";
-import shopIcon from "@assets/svg/shopIcon.svg";
-import storeIcon from "@assets/svg/storeIcon.svg";
 import authorIcon from "@assets/svg/authorIcon.svg";
 import BooksIcon from "@assets/svg/BooksIcon.svg";
-import Shop from "@pages/Shop/Shop";
-import Stores from "@pages/Stores/Stores";
+import shopIcon from "@assets/svg/shopIcon.svg";
+import storeIcon from "@assets/svg/storeIcon.svg";
 import Authors from "@pages/Authors/Authors";
 import Books from "@pages/Books/Books";
+import Shop from "@pages/Shop/Shop";
+import Stores from "@pages/Stores/Stores";
+import type { MenuProps } from "antd";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
+import React, { useState } from "react";
 
 const { Header, Content, Footer, Sider } = Layout;
 
