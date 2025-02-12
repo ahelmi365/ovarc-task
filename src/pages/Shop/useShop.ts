@@ -8,6 +8,7 @@ import { Book } from "types";
 
 const useShop = () => {
   const [books, setBooks] = useState<Book[]>([]);
+  const [filteredbooks, setFilteredBooks] = useState<Book[]>([]);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
@@ -18,6 +19,7 @@ const useShop = () => {
         const data = await getBooks();
         const booksWithAuthorNames = await addAuthorNamesToBooks(data);
         setBooks(booksWithAuthorNames);
+        setFilteredBooks(booksWithAuthorNames);
         setError(null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -30,7 +32,19 @@ const useShop = () => {
     fetchBooks();
   }, []);
 
-  return { books, error };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const trimmedValue = value.trim();
+    const newFilteredStores = books.filter((book) =>
+      book.name.toLocaleLowerCase().includes(trimmedValue)
+    );
+    setFilteredBooks(newFilteredStores);
+    if (trimmedValue === "") {
+      setFilteredBooks(books);
+    }
+  };
+
+  return { filteredbooks, error, handleInputChange };
 };
 
 export default useShop;

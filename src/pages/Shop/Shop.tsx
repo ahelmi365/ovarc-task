@@ -5,7 +5,7 @@ import Title from "antd/es/typography/Title";
 import useShop from "./useShop";
 
 const Shop = () => {
-  const { books } = useShop();
+  const { filteredbooks, handleInputChange } = useShop();
   return (
     <Flex vertical gap={"1rem"}>
       <Row justify={"space-between"}>
@@ -15,11 +15,11 @@ const Shop = () => {
           </Title>
         </Col>
         <Col>
-          <Search />
+          <Search onChange={handleInputChange} />
         </Col>
       </Row>
       <Row gutter={16}>
-        {books.slice(0, 10)?.map((book) => (
+        {filteredbooks.slice(0, 10)?.map((book) => (
           <Col sm={24} md={12} lg={8} key={book.id}>
             <ShopCard
               title={book.name.slice(0, 20)}
