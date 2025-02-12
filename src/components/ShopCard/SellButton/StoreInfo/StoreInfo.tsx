@@ -12,7 +12,7 @@ const StoreInfo = ({ storeName, price }: StoreInfoProps) => {
       gap={8}
       justify="center"
       align="center"
-      style={{ padding: "7px", borderRadius: "5px" }}
+      style={{ padding: "7px", borderRadius: "5px", textAlign: "center" }}
     >
       <div>{storeName}</div>
       <div style={{ color: "#E9692C", fontWeight: "bold" }}>${price}</div>
