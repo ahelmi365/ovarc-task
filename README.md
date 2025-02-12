@@ -1,10 +1,80 @@
-# Ovarc BookShop App
+# Ovarc BookShop App 📚🛍️✨
 
-## Overview
+## Overview 📖🖥️🔄
 
-This is a Bookshop application built using React (for web) for external public use where other bookstores or print houses can use it to perform CRUD operations on the books.
+Ovarc BookShop is a web application built with React, designed for public use by bookstores and print houses. It allows users to manage books, authors, and stores through 📝 CRUD operations. 🖥️📖🔄
 
-#### File Structure:
+## Features
+
+### **Shop Page** 📚🏬🔍
+
+- Displays a list of books with their cover image, title, author, and available stores.
+- Includes a real-time search feature that updates results as the user types.
+
+### **Authors Page** ✍️📑🔄
+
+- Shows a list of authors with options to edit their names (🚧 feature to be implemented) or delete them.
+- Includes a modal for adding new authors.
+- Provides search functionality to find authors by first or last name.
+- Supports sorting and filtering across all table columns.
+
+### **Books Page** 📖📜📌
+
+- Displays a list of books, showing the title, page count, and author.
+- Includes an edit button to modify the book title (🚧 feature to be implemented) and a delete button to remove books from the store.
+- Provides an option to add new books.
+- Supports search by book title.
+- Allows sorting and filtering of all table columns.
+
+### **Stores Page** 🏢📍🗂️
+
+- Lists all stores with their names and addresses.
+- Includes an edit button to modify store details (🚧 feature to be implemented) and a delete button to remove stores.
+- Provides an option to add new stores.
+- Supports search by store name.
+- Allows sorting and filtering of all table columns.
+
+## Technologies Used 🚀💻⚙️
+
+- **React** (for UI development)
+- **TypeScript** (for type safety and better code maintainability)
+- **State Management**: Redux, Redux-Toolkit, and redux-persist
+- **UI Framework**: Ant Design
+- **Build Tool**: 🏗️ Vite
+- **Responsive Design** (ensures compatibility across different devices)
+
+## Getting Started 🏁🔧📂
+
+### Prerequisites 🏗️📌⚡
+
+- Node.js (v22.12.0)
+- npm or yarn (package managers)
+
+### Installation 🔽📥🛠️
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ahelmi365/ovarc-task.git
+   ```
+2. Navigate to the project directory and install dependencies:
+
+   ```bash
+   cd ovarc-task
+   npm install
+   ```
+
+3. Start the application:
+   - Run the backend server:
+     ```bash
+     npm run server
+     ```
+   - Start the development server:
+     ```bash
+     npm run dev
+     ```
+     🚀🔥✅
+
+### File Structure:📁
 
 ```
 /ovarc-task
@@ -69,71 +139,3 @@ This is a Bookshop application built using React (for web) for external public u
 ├── tsconfig.json
 └── ...
 ```
-
-## Features
-
-- **Shop Page**:
-
-  - It has a list of cards containing the book cover page, title & author, and which stores this book is available in.
-  - Search functionality that triggers while typing to find specific books.
-
-- **Authors page**:
-
-  - It has a simple list of authors and two CTAs to edit the name () or delete (t be implemented) the author entirely. There is a CTA & a modal too for adding a new author.
-    - You can use the search input to search for Author first name or last name.
-    - You can sort and filter all columns in the table.
-
-- **Books page**
-
-  - It has a list of books, with book name, the number of pages, and who the author is. The edit CTA to edit the book title (to be implemented) and the Delete buton to delete a book from the store.
-  - There is also a button to add new Book to the store.
-  - You can use the search input to search for book by book name.
-  - You can sort and filter all columns in the table.
-
-- **Stores page**:
-  - It has a list of stores, with store name, the sore address. The edit CTA to edit the book title (to be implemented) and the Delete buton to delete a store.
-  - There is also a button to add new Store.
-  - You can use the search input to search for store by store name.
-  - You can sort and filter all columns in the table.
-
-## Technologies Used
-
-- React
-- TypeScript
-- State Management (e.g., Redux, Redux-Toolkit, and redux-persist)
-- Ant-Design
-- Vite
-- Responsive Design
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v22.12.0)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ahelmi365/ovarc-task.git
-   ```
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the application:
-
-   - Open New Terminal
-
-     ```bash
-     npm run server
-     ```
-
-   - Open New Terminal
-
-     ```bash
-     npm run dev
-     ```
