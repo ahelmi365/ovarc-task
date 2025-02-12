@@ -46,7 +46,7 @@ const ShopCard = ({
             <GraySpan>By:{authorName}</GraySpan>
           </Col>
 
-          <Col>
+          <Col style={{ marginTop: "10px" }}>
             <GraySpan>Stores</GraySpan>
           </Col>
           <Flex gap={16}>
