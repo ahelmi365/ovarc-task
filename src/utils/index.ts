@@ -57,3 +57,18 @@ export const addAuthorNamesToBooks = async (books: Book[]) => {
   );
   return booksWithAuthorNames;
 };
+
+export function debounce<T extends (...args: string[]) => void>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timeoutId: NodeJS.Timeout;
+  return function (...args: Parameters<T>) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}

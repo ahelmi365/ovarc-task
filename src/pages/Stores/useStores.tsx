@@ -4,7 +4,12 @@ import AddNewStore from "@components/AddNewStore/AddNewStore";
 import { setIsLoading } from "@store/authSlice/authSlice";
 import { useAppDispatch } from "@store/hooks";
 import { App_MAIN_COLOR } from "@utils/consts";
-import { generateTableFilters, onFilterTable, sortTable } from "@utils/index";
+import {
+  debounce,
+  generateTableFilters,
+  onFilterTable,
+  sortTable,
+} from "@utils/index";
 import {
   Button,
   Flex,
@@ -13,11 +18,12 @@ import {
   TablePaginationConfig,
 } from "antd";
 import { createStore, deleteStore, getStores } from "apis/stores";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Store } from "types";
 
 const useStore = () => {
   const [stores, setStores] = useState<Store[]>([]);
+  const [filteredStores, setFilteredStores] = useState<Store[]>([]);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
@@ -26,6 +32,9 @@ const useStore = () => {
     try {
       await deleteStore(id);
       setStores((prevStores) => prevStores.filter((store) => store.id !== id));
+      setFilteredStores((prevStores) =>
+        prevStores.filter((store) => store.id !== id)
+      );
       notification.success({ message: "Store deleted successfully" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -37,12 +46,24 @@ const useStore = () => {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const trimmedValue = value.trim();
+    const newFilteredStores = stores.filter((store) =>
+      store.name.toLocaleLowerCase().includes(trimmedValue)
+    );
+    setFilteredStores(newFilteredStores);
+    if (trimmedValue === "") {
+      setFilteredStores(stores);
+    }
+  };
   useEffect(() => {
     const fetchStores = async () => {
       dispatch(setIsLoading(true));
       try {
         const data = await getStores();
         setStores(data);
+        setFilteredStores(data);
 
         setError(null);
       } catch (err) {
@@ -54,7 +75,7 @@ const useStore = () => {
     };
 
     fetchStores();
-  }, []);
+  }, [dispatch]);
 
   const [pagination, setPagination] = useState<TablePaginationConfig>({
     current: 1,
@@ -155,6 +176,7 @@ const useStore = () => {
       const newStore = await createStore(storeDetails);
       console.log({ newStore });
       setStores((prevStores) => [newStore, ...prevStores]);
+      setFilteredStores((prevStores) => [newStore, ...prevStores]);
 
       notification.success({ message: "Store added successfully" });
     } catch (err) {
@@ -185,7 +207,7 @@ const useStore = () => {
   };
 
   return {
-    stores,
+    filteredStores,
     columns,
     handleTableChange,
     pagination,
@@ -195,6 +217,7 @@ const useStore = () => {
     handleOk,
     handleCancel,
     handleAddNewStore,
+    handleInputChange,
   };
 };
 

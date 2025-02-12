@@ -8,7 +8,7 @@ import useStores from "./useStores";
 
 const Stores = () => {
   const {
-    stores,
+    filteredStores,
     columns,
     handleTableChange,
     pagination,
@@ -18,6 +18,8 @@ const Stores = () => {
     handleOk,
     handleCancel,
     handleAddNewStore,
+    handleInputChange,
+    query,
   } = useStores();
   return (
     <>
@@ -31,7 +33,10 @@ const Stores = () => {
                 </Title>
               </Col>
               <Col>
-                <Search />
+                <Search
+                  onChange={handleInputChange}
+                  placeholder="Searh by Store Name"
+                />
               </Col>
             </Flex>
           </Col>
@@ -44,7 +49,7 @@ const Stores = () => {
             <Table<Store>
               // scroll={{ x: 768 }}
               columns={columns}
-              dataSource={stores}
+              dataSource={filteredStores}
               rowKey={(record) => record.id}
               pagination={{
                 ...pagination,
