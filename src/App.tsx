@@ -9,6 +9,14 @@ import {
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import appLogo from "@assets/svg/appLogo.svg";
+import shopIcon from "@assets/svg/shopIcon.svg";
+import storeIcon from "@assets/svg/storeIcon.svg";
+import authorIcon from "@assets/svg/authorIcon.svg";
+import BooksIcon from "@assets/svg/BooksIcon.svg";
+import Shop from "@pages/Shop/Shop";
+import Stores from "@pages/Stores/Stores";
+import Authors from "@pages/Authors/Authors";
+import Books from "@pages/Books/Books";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,26 +37,33 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("Shop", "1", <img src={shopIcon} />),
+  getItem("Stores", "2", <img src={storeIcon} />),
+  getItem("Author", "3", <img src={authorIcon} />),
+  getItem("Books", "4", <img src={BooksIcon} />),
 ];
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedKey, setSelectedKey] = useState("1");
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const renderContent = () => {
+    switch (selectedKey) {
+      case "1":
+        return <Shop />;
+      case "2":
+        return <Stores />;
+      case "3":
+        return <Authors />;
+      case "4":
+        return <Books />;
+      default:
+        return <Shop />;
+    }
+  };
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -66,7 +81,8 @@ const App: React.FC = () => {
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
-          style={{ background: "#FFFFFF" }}
+          style={{ background: "#FFFFFF", marginTop: "1rem" }}
+          onSelect={({ key }) => setSelectedKey(key)}
         />
       </Sider>
       <Layout>
@@ -84,7 +100,7 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            Bill is a cat.
+            {renderContent()}
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
