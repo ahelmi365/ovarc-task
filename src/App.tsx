@@ -1,4 +1,5 @@
 import appLogo from "@assets/svg/appLogo.svg";
+import appLogoSmall from "@assets/svg/appLogoSmall.svg";
 import authorIcon from "@assets/svg/authorIcon.svg";
 import BooksIcon from "@assets/svg/BooksIcon.svg";
 import shopIcon from "@assets/svg/shopIcon.svg";
@@ -45,6 +46,7 @@ const items: MenuItem[] = [
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [appLogoSrc, setAppLogoSrc] = useState(appLogo);
   const [selectedKey, setSelectedKey] = useState("1");
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -92,7 +94,14 @@ const App: React.FC = () => {
       <Sider
         collapsible
         collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+        onCollapse={(value) => {
+          setCollapsed(value);
+          if (value) {
+            setAppLogoSrc(appLogoSmall);
+          } else {
+            setAppLogoSrc(appLogo);
+          }
+        }}
         theme="light"
         style={{
           padding: "10px",
@@ -106,8 +115,13 @@ const App: React.FC = () => {
           paddingTop: "4rem",
         }}
       >
-        <div className="demo-logo-vertical">
-          <img src={appLogo} alt="Book world logo" width={150} />
+        <div className="demo-logo-vertical" style={{ transition: "all 0.5s" }}>
+          <img
+            src={appLogoSrc}
+            alt="Book world logo"
+            width={collapsed ? 50 : 150}
+            style={{ transition: "all 0.5s" }}
+          />
         </div>
         <Menu
           theme="light"
