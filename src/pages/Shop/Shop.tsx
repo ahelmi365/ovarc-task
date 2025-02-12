@@ -1,11 +1,11 @@
 import ShopCard from "@components/ShopCard/ShopCard";
-import useBooks from "@hooks/useBooks";
 import { Col, Flex, Row } from "antd";
 import Search from "antd/es/input/Search";
 import Title from "antd/es/typography/Title";
+import useShop from "./useShop";
 
 const Shop = () => {
-  const { books } = useBooks();
+  const { books } = useShop();
   return (
     <Flex vertical gap={"1rem"}>
       <Row justify={"space-between"}>
