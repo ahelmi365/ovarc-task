@@ -23,7 +23,7 @@ const Shop = () => {
           />
         </Col>
       </Row>
-      <Row gutter={16}>
+      <Row gutter={[32, 32]}>
         {filteredbooks?.map((book) => (
           <Col sm={24} md={12} lg={8} key={book.id}>
             <ShopCard
