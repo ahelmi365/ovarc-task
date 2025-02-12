@@ -74,6 +74,9 @@ const useAuthors = () => {
       key: "id",
       fixed: "left",
       render: (_, record) => record.id,
+      filters: generateTableFilters(authors, "id"),
+      onFilter: (value, record) => onFilterTable(value, record, "id"),
+      sorter: (a, b) => sortTable(a, b, "id"),
     },
 
     {
