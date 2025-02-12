@@ -9,26 +9,27 @@ import {
   Select,
 } from "antd";
 import { BookDetails } from "types";
-
-const documentNNameOptions = [
-  {
-    value: "11",
-    label: "1111",
-  },
-];
+import useAddNewBook from "./useAddNewBook";
 
 interface IAddNewDocumentProps {
   onFinish: (newDetails: BookDetails) => void;
   onCancel: () => void;
 }
 const AddNewBook = ({ onFinish, onCancel }: IAddNewDocumentProps) => {
+  const authors = useAddNewBook();
+  const authorNamesOptions = authors.map((author) => {
+    return {
+      value: author.id,
+      label: `${author.first_name} ${author.last_name}`,
+    };
+  });
   const [form] = Form.useForm();
 
   const handleSubmitNewBookDetails = () => {
     onFinish({
       id: 123,
       name: form.getFieldValue("bookName"),
-      authorName: form.getFieldValue("authorName"),
+      authorId: form.getFieldValue("authorId"),
       page_count: form.getFieldValue("numberOfPages"),
     });
     form.resetFields();
@@ -78,12 +79,12 @@ const AddNewBook = ({ onFinish, onCancel }: IAddNewDocumentProps) => {
 
         <Form.Item
           label="Please select the author name"
-          name="docNameOption"
+          name="authorId"
           rules={[{ required: true, message: "This field is required!" }]}
         >
           <Select
             // onChange={handleChangeSelectBookName}
-            options={documentNNameOptions}
+            options={authorNamesOptions}
             placeholder="Select Document Name"
           />
         </Form.Item>

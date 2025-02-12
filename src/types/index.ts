@@ -51,6 +51,6 @@ export interface PaginatedResponse<T> {
 export interface BookDetails {
   id: number;
   name: string;
-  authorName: string;
+  authorId: string;
   page_count: number;
 }
