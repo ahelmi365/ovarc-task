@@ -16,7 +16,8 @@ export interface Book {
   language: string;
   page_count: number;
   format: "paperback" | "hardcover" | "ebook";
-  storeId:number;
+  storeId: number;
+  authorName: string;
 }
 
 export interface Author {
