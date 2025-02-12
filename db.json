@@ -951,36 +951,6 @@
       "page_count": 2647,
       "format": "ebook",
       "storeId": 1
-    },
-    {
-      "id": "b925",
-      "name": "Taha",
-      "author_id": "6",
-      "page_count": 100
-    },
-    {
-      "id": "d7e2",
-      "name": "memo",
-      "author_id": "4",
-      "page_count": 30
-    },
-    {
-      "id": "9966",
-      "name": "titooo",
-      "author_id": "8",
-      "page_count": 1
-    },
-    {
-      "id": "77fe",
-      "name": "ali",
-      "author_id": "5",
-      "page_count": 100
-    },
-    {
-      "id": "9df8",
-      "name": "Ali",
-      "author_id": "5",
-      "page_count": 300
     }
   ],
   "authors": [
