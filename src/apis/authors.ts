@@ -9,7 +9,7 @@ export const getAuthors = async (): Promise<Author[]> => {
 };
 
 // READ - Get single book
-export const getAuthor = async (id: number): Promise<Author> => {
+export const getAuthor = async (id: string): Promise<Author> => {
   const response = await fetch(`${API_URL}/authors/${id}`);
   return handleResponse(response);
 };
@@ -30,7 +30,7 @@ export const createAuthor = async (
 
 // UPDATE - Update book
 export const updateAuthor = async (
-  id: number,
+  id: string,
   book: Partial<Author>
 ): Promise<Author> => {
   const response = await fetch(`${API_URL}/authors/${id}`, {
@@ -44,7 +44,7 @@ export const updateAuthor = async (
 };
 
 // DELETE - Delete book
-export const deleteAuthor = async (id: number): Promise<void> => {
+export const deleteAuthor = async (id: string): Promise<void> => {
   const response = await fetch(`${API_URL}/authors/${id}`, {
     method: "DELETE",
   });

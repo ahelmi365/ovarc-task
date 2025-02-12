@@ -17,7 +17,7 @@ import {
   TableColumnsType,
   TablePaginationConfig,
 } from "antd";
-import { deleteBook, getBooks } from "apis/books";
+import { createBook, deleteBook, getBooks } from "apis/books";
 import { useEffect, useState } from "react";
 import { Book, BookDetails } from "types";
 
@@ -26,10 +26,9 @@ const useBooks = () => {
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
-  const handleDeleteBook = async (id: number) => {
+  const handleDeleteBook = async (id: string) => {
     dispatch(setIsLoading(true));
     try {
-      // Assuming deleteBook is an API call to delete the book by id
       await deleteBook(id);
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
       notification.success({ message: "Book deleted successfully" });
@@ -165,8 +164,23 @@ const useBooks = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const onFinish = (bookDetails: BookDetails) => {
+  const onFinish = async (bookDetails: BookDetails) => {
+    dispatch(setIsLoading(true));
+    try {
+      await createBook(bookDetails);
+
+      notification.success({ message: "Book added successfully" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+      notification.error({
+        message: "Failed to add book, please try again",
+      });
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+
     console.log({ bookDetails });
+
     handleOk();
   };
   const handleOk = () => {

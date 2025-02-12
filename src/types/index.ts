@@ -1,5 +1,5 @@
 export interface Store {
-  id: number;
+  id: string;
   name: string;
   address_1: string;
   address_2: string | null;
@@ -9,19 +9,19 @@ export interface Store {
 }
 
 export interface Book {
-  id: number;
-  author_id: number;
+  id: string;
+  author_id: string;
   name: string;
   isbn: string;
   language: string;
   page_count: number;
   format: "paperback" | "hardcover" | "ebook";
-  storeId: number;
+  storeId: string;
   authorName: string;
 }
 
 export interface Author {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -49,8 +49,7 @@ export interface PaginatedResponse<T> {
 }
 
 export interface BookDetails {
-  id: number;
   name: string;
-  authorId: string;
+  author_id: string;
   page_count: number;
 }

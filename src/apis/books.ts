@@ -1,5 +1,5 @@
 import { API_URL } from "@utils/consts";
-import { Book } from "types";
+import { Book, BookDetails } from "types";
 
 // Helper function to handle fetch responses
 const handleResponse = async (response: Response) => {
@@ -16,13 +16,15 @@ export const getBooks = async (): Promise<Book[]> => {
 };
 
 // READ - Get single book
-export const getBook = async (id: number): Promise<Book> => {
+export const getBook = async (id: string): Promise<Book> => {
   const response = await fetch(`${API_URL}/books/${id}`);
   return handleResponse(response);
 };
 
 // CREATE - Add new book
-export const createBook = async (book: Omit<Book, "id">): Promise<Book> => {
+export const createBook = async (
+  book: Omit<BookDetails, "id">
+): Promise<Book> => {
   const response = await fetch(`${API_URL}/books`, {
     method: "POST",
     headers: {
@@ -35,7 +37,7 @@ export const createBook = async (book: Omit<Book, "id">): Promise<Book> => {
 
 // UPDATE - Update book
 export const updateBook = async (
-  id: number,
+  id: string,
   book: Partial<Book>
 ): Promise<Book> => {
   const response = await fetch(`${API_URL}/books/${id}`, {
@@ -49,7 +51,7 @@ export const updateBook = async (
 };
 
 // DELETE - Delete book
-export const deleteBook = async (id: number): Promise<void> => {
+export const deleteBook = async (id: string): Promise<void> => {
   const response = await fetch(`${API_URL}/books/${id}`, {
     method: "DELETE",
   });
@@ -59,7 +61,8 @@ export const deleteBook = async (id: number): Promise<void> => {
 };
 
 // READ - Get author name by author ID
-export const getAuthorName = async (authorId: number): Promise<string> => {
+export const getAuthorName = async (authorId: string): Promise<string> => {
+  if (!authorId) return "";
   const response = await fetch(`${API_URL}/authors/${authorId}`);
   const data = await handleResponse(response);
   return data["first_name"] + data["last_name"];

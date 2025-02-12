@@ -27,13 +27,11 @@ const AddNewBook = ({ onFinish, onCancel }: IAddNewDocumentProps) => {
 
   const handleSubmitNewBookDetails = () => {
     onFinish({
-      id: 123,
       name: form.getFieldValue("bookName"),
-      authorId: form.getFieldValue("authorId"),
+      author_id: form.getFieldValue("authorId"),
       page_count: form.getFieldValue("numberOfPages"),
     });
     form.resetFields();
-    notification.success({ message: "New document is added successfully!" });
 
     return;
   };
